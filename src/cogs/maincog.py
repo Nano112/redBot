@@ -26,7 +26,7 @@ class MainCog(commands.Cog):
         for index, specialty in enumerate(self.specialties):
             embed.add_field(name=index, value='**'+specialty+'**', inline=False)
         await ctx.send(embed=embed)
-
+    
     async def get_specialty(self, ctx, params):
         author = ctx.message.author
         params = params[1:]
@@ -37,6 +37,12 @@ class MainCog(commands.Cog):
             if param in self.specialties:
                 added_specialties.append(param)
                 specialty = discord.utils.get(author.guild.roles, name=param)
+                await author.add_roles(specialty)
+            elif param.isdecimal():
+                if int(param) < len(self.specialties):
+                    param_from_index = self.specialties[int(param)]
+                    added_specialties.append(param_from_index)
+                    specialty = discord.utils.get(author.guild.roles, name=param_from_index)
                 await author.add_roles(specialty)
             else:
                 unknown_specialties.append(param)
