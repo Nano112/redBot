@@ -47,11 +47,11 @@ class MainCog(commands.Cog):
                 await author.add_roles(specialty)
             else:
                 unknown_specialties.append(param)
-        message += ('Roles ' + repr(added_specialties) + ' were added to ' + author.name) if len(
+        message += ('Roles \`' + ', '.join(added_specialties) + '\` were added to ' + author.name) if len(
             added_specialties) > 0 else 'No ranks were added'
         
         if len(unknown_specialties) > 0:
-            message += ('\nRoles ' + repr(unknown_specialties) + ' are unknown ')
+            message += ('\nRoles \`' + ', '.join(unknown_specialties) + '\` are unknown ')
         await ctx.send(message)
         
     async def remove_specialty(self, ctx, params):
@@ -74,10 +74,10 @@ class MainCog(commands.Cog):
                 await author.remove_roles(specialty)
             else:
                 unknown_specialties.append(param)
-         message += ('Roles ' + repr(added_specialties) + ' were removed from ' + author.name) if len(
+         message += ('Roles \`' + ', '.join(added_specialties) + '\` were removed from ' + author.name) if len(
             added_specialties) > 0 else 'No ranks were added'
         if len(unknown_specialties) > 0:
-             message += ('Roles ' + repr(unknown_specialties) + ' are unknown ')
+            message += ('Roles \`' + ', '.join(unknown_specialties) + '\` are unknown ')
         await ctx.send(message)
 
     @commands.command()
