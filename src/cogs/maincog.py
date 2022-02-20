@@ -32,6 +32,7 @@ class MainCog(commands.Cog):
         params = params[1:]
         added_specialties = []
         unknown_specialties = []
+        message = ""
         for param in params:
             param = param.capitalize()
             if param in self.specialties:
@@ -46,11 +47,13 @@ class MainCog(commands.Cog):
                 await author.add_roles(specialty)
             else:
                 unknown_specialties.append(param)
-        await ctx.send(('Roles ' + repr(added_specialties) + ' were added to ' + author.name) if len(
-            added_specialties) > 0 else 'No ranks were added')
+        message += ('Roles ' + repr(added_specialties) + ' were added to ' + author.name) if len(
+            added_specialties) > 0 else 'No ranks were added'
+        
         if len(unknown_specialties) > 0:
-            await ctx.send(('Roles ' + repr(unknown_specialties) + ' are unknown '))
-
+            message += ('\nRoles ' + repr(unknown_specialties) + ' are unknown ')
+            
+        await ctx.send(message)
     async def remove_specialty(self, ctx, params):
         author = ctx.message.author
         params = params[1:]
