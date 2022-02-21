@@ -44,14 +44,16 @@ class MainCog(commands.Cog):
                     param_from_index = self.specialties[int(param)]
                     added_specialties.append(param_from_index)
                     specialty = discord.utils.get(author.guild.roles, name=param_from_index)
-                await author.add_roles(specialty)
+                    await author.add_roles(specialty)
+                else:
+                    unknown_specialties.append(param)
             else:
                 unknown_specialties.append(param)
-        message += ('Roles \`' + ', '.join(added_specialties) + '\` were added to ' + author.name) if len(
+        message += ('Roles `' + ', '.join(added_specialties) + '` were added to ' + author.name) if len(
             added_specialties) > 0 else 'No ranks were added'
         
         if len(unknown_specialties) > 0:
-            message += ('\nRoles \`' + ', '.join(unknown_specialties) + '\` are unknown ')
+            message += ('\nRoles `' + ', '.join(unknown_specialties) + '` are unknown ')
         await ctx.send(message)
         
     async def remove_specialty(self, ctx, params):
@@ -71,13 +73,15 @@ class MainCog(commands.Cog):
                     param_from_index = self.specialties[int(param)]
                     added_specialties.append(param_from_index)
                     specialty = discord.utils.get(author.guild.roles, name=param_from_index)
-                await author.remove_roles(specialty)
+                    await author.remove_roles(specialty)
+                else:
+                    unknown_specialties.append(param)
             else:
                 unknown_specialties.append(param)
-         message += ('Roles \`' + ', '.join(added_specialties) + '\` were removed from ' + author.name) if len(
+         message += ('Roles `' + ', '.join(added_specialties) + '` were removed from ' + author.name) if len(
             added_specialties) > 0 else 'No ranks were added'
         if len(unknown_specialties) > 0:
-            message += ('\nRoles \`' + ', '.join(unknown_specialties) + '\` are unknown ')
+            message += ('\nRoles `' + ', '.join(unknown_specialties) + '` are unknown ')
         await ctx.send(message)
 
     @commands.command()
