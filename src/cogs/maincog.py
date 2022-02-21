@@ -77,7 +77,7 @@ class MainCog(commands.Cog):
          message += ('Roles \`' + ', '.join(added_specialties) + '\` were removed from ' + author.name) if len(
             added_specialties) > 0 else 'No ranks were added'
         if len(unknown_specialties) > 0:
-            message += ('Roles \`' + ', '.join(unknown_specialties) + '\` are unknown ')
+            message += ('\nRoles \`' + ', '.join(unknown_specialties) + '\` are unknown ')
         await ctx.send(message)
 
     @commands.command()
