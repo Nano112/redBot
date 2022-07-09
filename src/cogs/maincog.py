@@ -19,13 +19,13 @@ class MainCog(commands.Cog):
             embed.add_field(name="list", value="type **$specialties list** to get the list of specialties",  inline=False)
             embed.add_field(name="get", value="type **$specialties get [specialty1 specialty2 ...]** to get specialties",  inline=False)
             embed.add_field(name="remove", value="type **$specialties remove [specialty1 specialty2 ...]** to remove specialties",  inline=False)
-            await ctx.send(embed=embed)
+            await ctx.send(embed=embed, allowed_mentions=discord.AllowedMentions.none())
 
     async def list_specialties(self, ctx):
         embed = discord.Embed(title="Available specialties", description="These are the specialties you can get", color=0xff0000)
         for index, specialty in enumerate(self.specialties):
             embed.add_field(name=index, value='**'+specialty+'**', inline=False)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=embed, allowed_mentions=discord.AllowedMentions.none())
     
     async def get_specialty(self, ctx, params):
         author = ctx.message.author
@@ -61,7 +61,7 @@ class MainCog(commands.Cog):
         
         if len(unknown_specialties) > 0:
             message += ('\nRoles `' + ', '.join(unknown_specialties) + '` are unknown ')
-        await ctx.send(message)
+        await ctx.send(message, allowed_mentions=discord.AllowedMentions.none())
         
     async def remove_specialty(self, ctx, params):
         author = ctx.message.author
@@ -95,7 +95,7 @@ class MainCog(commands.Cog):
         message += ('Roles `' + ', '.join(added_specialties) + '` were removed from ' + author.name) if len(added_specialties) > 0 else 'No ranks were added'
         if len(unknown_specialties) > 0:
             message += ('\nRoles `' + ', '.join(unknown_specialties) + '` are unknown ')
-        await ctx.send(message)
+        await ctx.send(message, allowed_mentions=discord.AllowedMentions.none())
 
     @commands.command()
     async def specialties(self, ctx, *, message = None):
