@@ -33,15 +33,22 @@ class MainCog(commands.Cog):
         added_specialties = []
         unknown_specialties = []
         message = ""
+        tested_params = []
         for param in params:
             param = param.capitalize()
             if param in self.specialties:
+                if param in tested_params:
+                    continue
+                tested_params.append(param)
                 added_specialties.append(param)
                 specialty = discord.utils.get(author.guild.roles, name=param)
                 await author.add_roles(specialty)
             elif param.isdecimal():
                 if int(param) < len(self.specialties):
-                    param_from_index = self.specialties[int(param)]
+                    param_from_index = self.specialties[int(param)].capitalize()
+                    if param_from_index in tested_params:
+                        continue
+                    tested_params.append(param_from_index)
                     added_specialties.append(param_from_index)
                     specialty = discord.utils.get(author.guild.roles, name=param_from_index)
                     await author.add_roles(specialty)
@@ -62,15 +69,22 @@ class MainCog(commands.Cog):
         added_specialties = []
         unknown_specialties = []
         message = ""
+        tested_params = []
         for param in params:
             param = param.capitalize()
             if param in self.specialties:
+                if param in tested_params:
+                    continue
+                tested_params.append(param)
                 added_specialties.append(param)
                 specialty = discord.utils.get(author.guild.roles, name=param)
                 await author.remove_roles(specialty)
             elif param.isdecimal():
                 if int(param) < len(self.specialties):
-                    param_from_index = self.specialties[int(param)]
+                    param_from_index = self.specialties[int(param)].capitalize()
+                    if param_from_index in tested_params:
+                        continue
+                    tested_params.append(param_from_index)
                     added_specialties.append(param_from_index)
                     specialty = discord.utils.get(author.guild.roles, name=param_from_index)
                     await author.remove_roles(specialty)
@@ -78,7 +92,7 @@ class MainCog(commands.Cog):
                     unknown_specialties.append(param)
             else:
                 unknown_specialties.append(param)
-        message += ('Roles \`' + ', '.join(added_specialties) + '\` were removed from ' + author.name) if len(added_specialties) > 0 else 'No ranks were added'
+        message += ('Roles `' + ', '.join(added_specialties) + '` were removed from ' + author.name) if len(added_specialties) > 0 else 'No ranks were added'
         if len(unknown_specialties) > 0:
             message += ('\nRoles `' + ', '.join(unknown_specialties) + '` are unknown ')
         await ctx.send(message)
