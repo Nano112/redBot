@@ -1,4 +1,5 @@
 
+from discord import AllowedMentions
 from discord.ext import commands
 import os
 from dotenv import load_dotenv
@@ -11,7 +12,7 @@ with open('config.json') as file:
       config = json.load(file)
 
 
-red_bot = commands.Bot(command_prefix=config["command_prefix"])
+red_bot = commands.Bot(command_prefix=config["command_prefix"], AllowedMentions = AllowedMentions.none())
 
 red_bot.load_extension("cogs.maincog")
 
